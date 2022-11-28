@@ -1,17 +1,5 @@
 /*
-* (c) Copyright IBM Corporation 2018
 *
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
 */
 
 //package com.ibm.mq.samples.jms;
@@ -61,6 +49,7 @@ public class JmsPutGet {
 	private static  String APP_USER = "app"; // User name that application uses to connect to MQ
 	private static  String APP_PASSWORD = "_APP_PASSWORD_"; // Password that the application uses to connect to MQ
 	private static  String QUEUE_NAME = "DEV.QUEUE.1"; // Queue that the application uses to put and get messages to and from
+	private static  String SSLSPEC = "TLS_RSA_WITH_AES_128_CBC_SHA256";
 
 
 	/**
@@ -77,11 +66,18 @@ public class JmsPutGet {
 		JMSConsumer consumer = null;
 
         if (args.length == 5) {
+		   HOST = args[0];
+           PORT = new Integer(args[1]);
+           CHANNEL = args[2];
+           QMGR = args[3];
+           QUEUE_NAME = args[4];
+		} else if (args.length == 6) {
            HOST = args[0];
            PORT = new Integer(args[1]);
            CHANNEL = args[2];
            QMGR = args[3];
            QUEUE_NAME = args[4];
+		   SSLSPEC = args[5];
 
         } else if (args.length == 1) {
            HOST = "localhost";   
@@ -103,6 +99,8 @@ public class JmsPutGet {
 			cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, QMGR);
 			cf.setStringProperty(WMQConstants.WMQ_APPLICATIONNAME, "JmsPutGet (JMS)");
 			
+			if (args.length >= 6)
+			    cf.setStringProperty(WMQConstants.WMQ_SSL_CIPHER_SUITE, SSLSPEC);
 			//cf.setStringProperty(WMQConstants.WMQ_SSL_CIPHER_SUITE, "TLS_RSA_WITH_AES_128_CBC_SHA256");
 			
 			//cf.setStringProperty(WMQConstants.WMQ_SSL_CIPHER_SPEC, "SSL_RSA_WITH_AES_128_CBC_SHA256");
