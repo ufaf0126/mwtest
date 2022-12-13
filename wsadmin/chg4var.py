@@ -25,15 +25,24 @@ for ID in LIST:
         OCOLV=AdminConfig.showAttribute(ID,'value')
         #print '\n \' ID \' ='+ID
         print ' \n %s = %s'%(OCOL,OCOLV)
-        OCOLV='/waslog'
+        #OCOLV='/waslog'
+        OCOLV='${USER_INSTALL_ROOT}/logs'
         print '\n AdminConfig.modify(\'%s\', \'[[symbolicName %s] [value \"%s\"]]\')'%(ID,OCOL,OCOLV)
+        OCHG='[[symbolicName '+OCOL+'] [description "The filesystem path to the directory which will contain server log files."] [value \"'+OCOLV+'\"]]'
+        print '\n Change : AdminConfig.modify(%s,%s)'%(ID,OCHG)
+        AdminConfig.modify(ID,OCHG)
+        
 
     if (OCOL == 'DB2_JCC_DRIVER_PATH' or OCOL == 'DB2_JDBC_DRIVER_PATH' or OCOL == 'DB2UNIVERSAL_JDBC_DRIVER_PATH'):
         OCOLV=AdminConfig.showAttribute(ID,'value')
-        #print '\n \' ID \' ='+ID
+        #print ID+' show :'+AdminConfig.showall(ID)+' \n'
         print ' \n %s = %s'%(OCOL,OCOLV)
         OCOLV='/opt/IBM/WebSphere/AppServer/db2driver'
         print '\n AdminConfig.modify(\'%s\', \'[[symbolicName %s] [value \"%s\"]]\')'%(ID,OCOL,OCOLV)    
+        OCHG='[[symbolicName '+OCOL+'] [value '+OCOLV+']]'
+        print '\n Change : AdminConfig.modify(\'%s\',\'%s\')'%(ID,OCHG)
+        AdminConfig.modify(ID,OCHG)
+        
 
 print '\n END : \n'
 
