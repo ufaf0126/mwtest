@@ -38,6 +38,8 @@ show_main_menu() {
       a1 "Application : " 
       p1 "Property : " 
 
+      x1 "input : " 
+
         ......
         q.QUIT
 
@@ -70,6 +72,7 @@ main() {
       v4) echo "Library : " ; wsadmin.sh -f list4type.py Library n y ;;
       a1) echo "Application : " ; wsadmin.sh -f list4type.py Application n y ;;
       p1) echo "Property : " ; wsadmin.sh -f list4type.py Property n y ;;
+      x1) echo "input : " ; read oType ; wsadmin.sh -f list4type.py $oType n y ;;
       
       
       q)
